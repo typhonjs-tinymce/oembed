@@ -1,0 +1,5 @@
+/dist
+/public
+/test/fixture
+/test/public
+rollup.config.js

@@ -1,3 +1,19 @@
+/**
+ * Extended copyright:
+ * Copyright (c) TyphonRT Media, Inc
+ * @typhonjs-tinymce/oembed is modified from the `media` plugin.
+ * It is not commercially supported by Tiny Technologies, Inc.
+ * For commercial use a license from Tiny Technologies, Inc and
+ * TyphonRT Media, Inc is required otherwise the LGPL 2.1 license applies.
+ *
+ * Original copyright:
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ */
+
+
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
 

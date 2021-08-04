@@ -1,0 +1,10 @@
+/**
+ * NPM: https://www.npmjs.com/package/@typhonjs-config/eslint-config
+ */
+{
+  "extends": "@typhonjs-config/eslint-config/esm/2019/browser",
+
+  "globals": {
+    "tinymce": "readonly"
+  }
+}
