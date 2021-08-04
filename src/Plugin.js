@@ -17,6 +17,13 @@ export class PluginOembed
       FilterContent.setup(editor);
       Selection.setup(editor);
    }
+
+   getMetadata() {
+      return {
+         name: 'TyphonJS oEmbed',
+         url: 'https://github.com/typhonjs-tinymce/oembed'
+      };
+   }
 }
 
 export default () =>

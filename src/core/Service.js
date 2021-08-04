@@ -8,18 +8,12 @@ import Settings from '../Settings.js';
  */
 const s_CACHE = new Map();
 
-
 /**
  * Currently supports Vimeo / YouTube.
  *
  * @type {OEmbedService[]}
  */
 const s_SERVICES = [
-   {
-      name: 'Spotify',
-      regex: /^(https:\/\/open.spotify.com\/(.*)|spotify:(.*))/,
-      url: (url, maxwidth, maxheight) => `https://open.spotify.com/oembed?url=${url}`
-   },
    {
       name: 'Vimeo',
       regex: /^(https:\/\/vimeo.com\/(.*)|https:\/\/vimeo.com\/album\/(.*)\/video\/(.*)|https:\/\/vimeo.com\/channels\/(.*)\/(.*)|https:\/\/vimeo.com\/groups\/(.*)\/videos\/(.*)|https:\/\/vimeo.com\/ondemand\/(.*)\/(.*)|https:\/\/player.vimeo.com\/video\/(.*))/,
@@ -65,7 +59,7 @@ export default class Service
          catch (err)
          {
             const message = err.msg || err.message || 'Unknown error.';
-            editor.notificationManager.open({ type: 'error', text: `Media embed handler error: ${message}` });
+            editor.notificationManager.open({ type: 'error', text: `Media embed error: ${message}` });
 
             return void 0;
          }
@@ -91,7 +85,7 @@ export default class Service
          {
             editor.notificationManager.open({
                type: 'error',
-               text: 'Media embed handler error: URL did not match any providers available.'
+               text: 'Media embed error: URL did not match any providers available.'
             });
             return void 0;
          }
@@ -103,12 +97,23 @@ export default class Service
          {
             editor.notificationManager.open({
                type: 'error',
-               text: `Media embed handler error: Could not fetch ${oembedName} embed URL.`
+               text: `Media embed error: Could not fetch ${oembedName} embed URL.`
             });
             return void 0;
          }
 
          const json = await remoteResponse.json();
+
+         if (json.html === void 0)
+         {
+            const message = json.error ? json.error : `Could not fetch ${oembedName} embed URL.`
+
+            editor.notificationManager.open({
+               type: 'error',
+               text: `Media embed error: ${message}`
+            });
+            return void 0;
+         }
 
          response = { url: data.source, html: json.html, poster: json.thumbnail_url };
       }
