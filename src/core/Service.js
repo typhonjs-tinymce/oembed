@@ -24,7 +24,7 @@ const s_SERVICES = [
       regex: /^(https:\/\/(.*).youtube.com\/watch(.*)|https:\/\/(.*).youtube.com\/v\/(.*)|https:\/\/youtu.be\/(.*)|https:\/\/(.*).youtube.com\/playlist?list=(.*))/,
       url: (url, maxwidth, maxheight) => `https://www.youtube.com/oembed?url=${url}&format=json&maxwidth=${maxwidth}&maxheight=${maxheight}`
    }
-]
+];
 
 /**
  *
@@ -76,7 +76,7 @@ export default class Service
          {
             if (service.regex.exec(data.source))
             {
-               oembedUrl = service.url(data.source, maxwidth, maxheight)
+               oembedUrl = service.url(data.source, maxwidth, maxheight);
                oembedName = service.name;
             }
          }
@@ -106,7 +106,7 @@ export default class Service
 
          if (json.html === void 0)
          {
-            const message = json.error ? json.error : `Could not fetch ${oembedName} embed URL.`
+            const message = json.error ? json.error : `Could not fetch ${oembedName} embed URL.`;
 
             editor.notificationManager.open({
                type: 'error',

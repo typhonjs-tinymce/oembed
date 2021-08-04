@@ -4,19 +4,6 @@
 import Nodes         from './Nodes.js';
 import { sanitize }  from './sanitize.js';
 
-const s_FULLSCREEN_ATTRIBUTES = [
-   'allowfullscreen',
-   'mozallowfullscreen',
-   'webkitallowfullscreen'
-];
-
-const s_SPECIAL_ELEMENTS = [
-   'audio',
-   'iframe',
-   'object',
-   'video'
-];
-
 /**
  *
  */
@@ -29,22 +16,6 @@ export default class FilterContent
    {
       editor.on('preInit', () =>
       {
-         // Make sure that any messy HTML is retained inside these
-         const specialElements = editor.schema.getSpecialElements();
-
-         for (const name of s_SPECIAL_ELEMENTS)
-         {
-            specialElements[name] = new RegExp(`<\/${name}[^>]*>`, 'gi');
-            // specialElements[name] = new RegExp(`</${name}[^>]*>`, 'gi');
-         }
-
-         // Set allowFullscreen attribs as boolean
-         const boolAttrs = editor.schema.getBoolAttrs();
-         for (const name of s_FULLSCREEN_ATTRIBUTES)
-         {
-            boolAttrs[name] = {};
-         }
-
          // Converts iframe, video etc into placeholder images
          editor.parser.addNodeFilter('iframe,video,audio,object,embed', Nodes.placeHolderConverter(editor));
 

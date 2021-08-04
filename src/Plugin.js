@@ -18,7 +18,8 @@ export class PluginOembed
       Selection.setup(editor);
    }
 
-   getMetadata() {
+   getMetadata()
+   {
       return {
          name: 'TyphonJS oEmbed',
          url: 'https://github.com/typhonjs-tinymce/oembed'
