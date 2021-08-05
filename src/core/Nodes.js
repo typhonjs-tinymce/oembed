@@ -265,7 +265,7 @@ const retainAttributesAndInnerHtml = (editor, sourceNode, targetNode) =>
             attrValue = editor.convertURL(attrValue, attrName);
          }
 
-         targetNode.attr(`data-oembed-p-${attrName}`, attrValue);
+         targetNode.attr(`data-mce-p-${attrName}`, attrValue);
       }
    }
 

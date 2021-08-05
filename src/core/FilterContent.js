@@ -72,9 +72,9 @@ export default class FilterContent
                {
                   const attrName = attribs[ai].name;
 
-                  if (attrName.indexOf('data-oembed-p-') === 0)
+                  if (attrName.indexOf('data-mce-p-') === 0)
                   {
-                     realElm.attr(attrName.substr(14), attribs[ai].value);
+                     realElm.attr(attrName.substr(11), attribs[ai].value);
                   }
                }
 
