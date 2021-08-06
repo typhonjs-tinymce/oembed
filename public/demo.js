@@ -161,14 +161,14 @@ const s_DEFAULT_STYLE_FORMATS = [{
 
 tinymce.init({
    selector: 'textarea.tinymce',
-   plugins: 'typhonjs-oembed help',
-   toolbar: 'styleselect | undo redo | typhonjs-oembed | help',
+   plugins: 'typhonjs-oembed media help',
+   toolbar: 'styleselect | undo redo | typhonjs-oembed | media | help',
    style_formats: s_DEFAULT_STYLE_FORMATS,
    extended_valid_elements: 'iframe[allow|allowfullscreen|frameborder|scrolling|class|style|src|width|height]',
    // oembed_dimensions: false,
    oembed_live_embeds: false,
-   oembed_default_width: 300,
-   oembed_default_height: 169,
+   oembed_default_width: 424,
+   oembed_default_height: 238,
    // oembed_disable_file_source: true,
    file_picker_callback: (callback, value, meta) => {
       // Provide alternative source and posted for the media dialog

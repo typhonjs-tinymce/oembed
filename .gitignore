@@ -6,10 +6,6 @@ npm-debug.log
 /.nyc_output
 /coverage
 /coverage-browser
-/dist
 /env
 /lib
 node_modules
-/test/public/Eventbus.js
-/test/public/Eventbus.js.map
-/test/public/TestsuiteRunner.js
