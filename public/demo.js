@@ -161,7 +161,7 @@ const s_DEFAULT_STYLE_FORMATS = [{
 
 tinymce.init({
    selector: 'textarea.tinymce',
-   plugins: 'typhonjs-oembed media help',
+   plugins: ['typhonjs-oembed', 'media', 'help'],
    toolbar: 'styleselect | undo redo | typhonjs-oembed | media | help',
    style_formats: s_DEFAULT_STYLE_FORMATS,
    extended_valid_elements: 'iframe[allow|allowfullscreen|frameborder|scrolling|class|style|src|width|height]',
