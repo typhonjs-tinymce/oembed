@@ -6,7 +6,6 @@ npm-debug.log
 /.nyc_output
 /coverage
 /coverage-browser
-/dist
 /env
 /lib
 node_modules
