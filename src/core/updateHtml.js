@@ -2,55 +2,6 @@
  * Please see `./LICENSE` for license details.
  */
 
-/**
- * @param {AttrList}            attrs -
- *
- * @param {Record<string, any>} updatedAttrs -
- */
-const setAttributes = (attrs, updatedAttrs) =>
-{
-   const props = Object.keys(updatedAttrs);
-   for (let k = 0, len = props.length; k < len; k++)
-   {
-      const name = props[k];
-      const val = updatedAttrs[name];
-
-      const value = `${val}`;
-
-      if (attrs.map[name])
-      {
-         let i = attrs.length;
-         while (i--)
-         {
-            const attr = attrs[i];
-
-            if (attr.name === name)
-            {
-               if (value)
-               {
-                  attrs.map[name] = value;
-                  attr.value = value;
-               }
-               else
-               {
-                  delete attrs.map[name];
-                  attrs.splice(i, 1);
-               }
-            }
-         }
-      }
-      else if (value)
-      {
-         attrs.push({
-            name,
-            value
-         });
-
-         attrs.map[name] = value;
-      }
-   }
-};
-
 const sources = ['source'];
 
 /**
@@ -60,35 +11,29 @@ const sources = ['source'];
  *
  * @param {boolean}             [updateAll] -
  *
+ * @param {Schema}              [schema] -
+ *
  * @returns {string} -
  */
-export const updateHtml = (html, data, updateAll) =>
+export const updateHtml = (html, data, updateAll, schema) =>
 {
-   const writer = tinymce.html.Writer();
+   let numSources = 0;
    let sourceCount = 0;
    let hasImage;
 
-   tinymce.html.SaxParser({
-      validate: false,
-      allow_conditional_comments: true,
+   const parser = tinymce.html.DomParser(schema);
+   parser.addNodeFilter('source', (nodes) => numSources = nodes.length);
 
-      comment: (text) =>
-      {
-         writer.comment(text);
-      },
+   const rootNode = parser.parse(html);
 
-      cdata: (text) =>
-      {
-         writer.cdata(text);
-      },
+   // Node is AstNode | null | undefined
 
-      text: (text, raw) =>
+   for (let node = rootNode; node; node = node.walk())
+   {
+      if (node.type === 1)
       {
-         writer.text(text, raw);
-      },
+         const name = node.name;
 
-      start: (name, attrs, empty) =>
-      {
          switch (name)
          {
             case 'video':
@@ -98,10 +43,8 @@ export const updateHtml = (html, data, updateAll) =>
             case 'iframe':
                if (data.height !== undefined && data.width !== undefined)
                {
-                  setAttributes(attrs, {
-                     width: data.width,
-                     height: data.height
-                  });
+                  node.attr('width', data.width);
+                  node.attr('height', data.height);
                }
                break;
          }
@@ -111,29 +54,23 @@ export const updateHtml = (html, data, updateAll) =>
             switch (name)
             {
                case 'video':
-                  setAttributes(attrs, {
-                     poster: data.poster,
-                     src: ''
-                  });
+                  node.attr('poster', data.poster);
+                  node.attr('src', null);
                   break;
 
                case 'iframe':
-                  setAttributes(attrs, {
-                     src: data.source
-                  });
+                  node.attr('src', data.source);
                   break;
 
                case 'source':
                   if (sourceCount < 2)
                   {
-                     setAttributes(attrs, {
-                        src: data[sources[sourceCount]],
-                        type: data[`${sources[sourceCount]}mime`]
-                     });
+                     node.attr('src', data[sources[sourceCount]]);
+                     node.attr('type', data[sources[sourceCount] + 'mime'] || null);
 
-                     if (!data[sources[sourceCount]])
-                     {
-                        return;
+                     if (!data[sources[sourceCount]]) {
+                        node.remove();
+                        continue;
                      }
                   }
                   sourceCount++;
@@ -142,70 +79,14 @@ export const updateHtml = (html, data, updateAll) =>
                case 'img':
                   if (!data.poster)
                   {
-                     return;
+                     node.remove();
                   }
-
                   hasImage = true;
                   break;
             }
          }
-
-         writer.start(name, attrs, empty);
-      },
-
-      end: (name) =>
-      {
-         if (name === 'video' && updateAll)
-         {
-            for (let index = 0; index < 2; index++)
-            {
-               if (data[sources[index]])
-               {
-
-                  /**
-                   * An attribute list.
-                   *
-                   * @type {any}
-                   */
-                  const attrs = [];
-                  attrs.map = {};
-
-                  if (sourceCount <= index)
-                  {
-                     setAttributes(attrs, {
-                        src: data[sources[index]],
-                        type: data[`${sources[index]}mime`]
-                     });
-
-                     writer.start('source', attrs, true);
-                  }
-               }
-            }
-         }
-
-         if (data.poster && name === 'object' && updateAll && !hasImage)
-         {
-
-            /**
-             * An attribute list.
-             *
-             * @type {any}
-             */
-            const imgAttrs = [];
-            imgAttrs.map = {};
-
-            setAttributes(imgAttrs, {
-               src: data.poster,
-               width: data.width,
-               height: data.height
-            });
-
-            writer.start('img', imgAttrs, true);
-         }
-
-         writer.end(name);
       }
-   }, tinymce.html.Schema({})).parse(html);
+   }
 
-   return writer.getContent();
+   return tinymce.html.Serializer({}, schema).serialize(rootNode);
 };

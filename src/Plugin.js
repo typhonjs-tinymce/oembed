@@ -29,5 +29,5 @@ export class PluginOembed
 
 export default () =>
 {
-   tinymce.PluginManager.add('typhonjs-oembed', PluginOembed);
+   tinymce.PluginManager.add('typhonjs-oembed', (editor) => new PluginOembed(editor));
 };
