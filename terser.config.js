@@ -1,6 +1,7 @@
 export default {
    compress: {
-      passes: 3
+      passes: 3,
+      booleans: false
    },
 
    mangle: {
