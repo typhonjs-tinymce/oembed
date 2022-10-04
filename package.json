@@ -15,14 +15,13 @@
     "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
   ],
   "devDependencies": {
-    "@ephox/katamari": "^9.0.3",
+    "@ephox/katamari": "^9.1.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
-    "@typhonjs-utils/build-test": "^0.2.0",
-    "@typhonjs-utils/build-test-browser": "^0.0.12",
+    "cross-env": "^7.0.3",
+    "polka": "^0.5.2",
     "rollup": "^2",
-    "rollup-plugin-istanbul": "^3.0.0",
     "rollup-plugin-terser": "^7",
-    "snowpack": "^3.8.8",
+    "sirv": "^2.0.2",
     "tinymce": "^6.1.2"
   },
   "engines": {
@@ -44,14 +43,11 @@
   "repository": "github:typhonjs-node-plugin/eventbus",
   "bugs": "https://github.com/typhonjs-node-plugin/eventbus/issues",
   "scripts": {
-    "start": "snowpack dev",
+    "sirv-v5": "cross-env PORT=8000 ROOT=\"./public/v5\" node server.mjs",
+    "sirv-v6": "cross-env PORT=8001 ROOT=\"./public/v6\" node server.mjs",
     "bundle": "rollup --config",
     "eslint": "eslint .",
-    "posttest-browser": "nyc report --exclude-after-remap=true --reporter=lcov --reporter=text-summary --report-dir=coverage-browser",
-    "pretest-browser": "rollup --config rollup.config.browser-test.js",
     "prepublishOnly": "npm run bundle",
-    "test-browser": "node ./test/src/browser/run.js",
-    "test-node": "c8 --exclude-after-remap=true --reporter=lcov --reporter=text-summary mocha -colors \"test/src/node/**/*.test.js\" --timeout 16000",
     "types": "npx -p typescript tsc --project tsconfig.types.json && rollup --config rollup.config.types.js"
   }
 }
