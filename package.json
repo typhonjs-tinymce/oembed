@@ -23,7 +23,9 @@
   "devDependencies": {
     "@ephox/katamari": "^9.1.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
+    "@typhonjs-config/eslint-config": "^0.3.0",
     "cross-env": "^7.0.3",
+    "eslint": "^8.24.0",
     "polka": "^0.5.2",
     "rollup": "^2",
     "rollup-plugin-terser": "^7",
@@ -49,11 +51,10 @@
   "repository": "github:typhonjs-node-plugin/eventbus",
   "bugs": "https://github.com/typhonjs-node-plugin/eventbus/issues",
   "scripts": {
-    "sirv-v5": "cross-env PORT=8000 ROOT=\"./public/v5\" node server.mjs",
-    "sirv-v6": "cross-env PORT=8001 ROOT=\"./public/v6\" node server.mjs",
     "bundle": "rollup --config",
     "eslint": "eslint .",
     "prepublishOnly": "npm run bundle",
-    "types": "npx -p typescript tsc --project tsconfig.types.json && rollup --config rollup.config.types.js"
+    "sirv-v5": "cross-env PORT=8000 ROOT=\"./public/v5\" node server.mjs",
+    "sirv-v6": "cross-env PORT=8001 ROOT=\"./public/v6\" node server.mjs"
   }
 }
