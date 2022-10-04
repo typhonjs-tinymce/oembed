@@ -1,13 +1,19 @@
 {
   "name": "@typhonjs-tinymce/oembed",
   "description": "Provides a TinyMCE plugin for embedding oEmbed media.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
   "type": "module",
   "browser": "dist/esm/typhonjs-oembed.js",
   "exports": {
+    "./v5": {
+      "import": "./dist/v5/esm/typhonjs-oembed.js"
+    },
+    "./v6": {
+      "import": "./dist/v6/esm/typhonjs-oembed.js"
+    },
     ".": {
-      "browser": "./dist/esm/typhonjs-oembed.js"
+      "import": "./dist/v6/esm/typhonjs-oembed.js"
     },
     "./package.json": "./package.json"
   },
