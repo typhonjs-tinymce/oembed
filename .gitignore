@@ -9,3 +9,5 @@ npm-debug.log
 /env
 /lib
 node_modules
+/public/v5/typhonjs-oembed.js*
+/public/v6/typhonjs-oembed.js*

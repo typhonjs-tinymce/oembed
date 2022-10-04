@@ -7,7 +7,11 @@ import { terser }    from 'rollup-plugin-terser';        // Terser is used for m
 import terserConfig  from './terser.config';
 
 // The deploy path for the distribution for browser & Node.
-const s_DIST_BROWSER = './dist';
+const s_DIST_V5 = './dist/v5';
+const s_DIST_V6 = './dist/v6';
+
+const s_PUBLIC_V5 = './public/v5';
+const s_PUBLIC_V6 = './public/v6';
 
 // Produce sourcemaps or not.
 const s_SOURCEMAP = true;
@@ -25,35 +29,83 @@ export default () =>
       outputPlugins.push(terser(terserConfig));
    }
 
-   return [{     // This bundle is for the browser distribution.
-         input: ['src/Main.js'],
+   return [
+      // TinyMCE v5 version ------------------------------------------------------------------------------------------
+
+      {     // This bundle is for the browser distribution.
+         input: ['src/v5/Main.js'],
          treeshake: {
             preset: 'smallest'   // This will reduce @ephox/katamari import.
          },
          output: [{
-            file: `${s_DIST_BROWSER}${path.sep}esm${path.sep}typhonjs-oembed.js`,
+            file: `${s_DIST_V5}${path.sep}esm${path.sep}typhonjs-oembed.js`,
             format: 'es',
             plugins: outputPlugins,
             preferConst: true,
+            sourcemap: s_SOURCEMAP
+         },
+            {
+               file: `${s_PUBLIC_V5}${path.sep}typhonjs-oembed.js`,
+               format: 'es',
+               preferConst: true,
+               sourcemap: s_SOURCEMAP
+            }],
+         plugins: [
+            resolve({ browser: true }),
+         ]
+      },
+      {     // This bundle is for the browser distribution.
+         input: ['src/v5/Main.js'],
+         treeshake: {
+            preset: 'smallest'   // This will reduce @ephox/katamari import.
+         },
+         output: [{
+            file: `${s_DIST_V5}${path.sep}umd${path.sep}typhonjs-oembed.js`,
+            format: 'umd',
+            plugins: outputPlugins,
+            preferConst: true,
             sourcemap: s_SOURCEMAP,
-            // sourcemapPathTransform: (sourcePath) => sourcePath.replace(relativeDistBrowserPath, `.`)
+         }],
+         plugins: [
+            resolve({ browser: true }),
+         ]
+      },
+
+      // TinyMCE v6 version ------------------------------------------------------------------------------------------
+
+      {     // This bundle is for the browser distribution.
+         input: ['src/v6/Main.js'],
+         treeshake: {
+            preset: 'smallest'   // This will reduce @ephox/katamari import.
+         },
+         output: [{
+            file: `${s_DIST_V6}${path.sep}esm${path.sep}typhonjs-oembed.js`,
+            format: 'es',
+            plugins: outputPlugins,
+            preferConst: true,
+            sourcemap: s_SOURCEMAP
+         },
+         {
+            file: `${s_PUBLIC_V6}${path.sep}typhonjs-oembed.js`,
+            format: 'es',
+            preferConst: true,
+            sourcemap: s_SOURCEMAP
          }],
          plugins: [
             resolve({ browser: true }),
          ]
       },
       {     // This bundle is for the browser distribution.
-         input: ['src/Main.js'],
+         input: ['src/v6/Main.js'],
          treeshake: {
             preset: 'smallest'   // This will reduce @ephox/katamari import.
          },
          output: [{
-            file: `${s_DIST_BROWSER}${path.sep}umd${path.sep}typhonjs-oembed.js`,
+            file: `${s_DIST_V6}${path.sep}umd${path.sep}typhonjs-oembed.js`,
             format: 'umd',
             plugins: outputPlugins,
             preferConst: true,
             sourcemap: s_SOURCEMAP,
-            // sourcemapPathTransform: (sourcePath) => sourcePath.replace(relativeDistBrowserPath, `.`)
          }],
          plugins: [
             resolve({ browser: true }),
