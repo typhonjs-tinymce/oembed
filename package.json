@@ -7,13 +7,22 @@
   "browser": "dist/v6/esm/typhonjs-oembed.js",
   "exports": {
     "./v5": {
-      "import": "./dist/v5/esm/typhonjs-oembed.js"
+      "import": "./dist/v5/esm/auto-register/typhonjs-oembed.js"
+    },
+    "./v5/plugin": {
+      "import": "./dist/v5/esm/plugin/typhonjs-oembed.js"
     },
     "./v6": {
-      "import": "./dist/v6/esm/typhonjs-oembed.js"
+      "import": "./dist/v6/esm/auto-register/typhonjs-oembed.js"
+    },
+    "./v6/plugin": {
+      "import": "./dist/v6/esm/plugin/typhonjs-oembed.js"
     },
     ".": {
-      "import": "./dist/v6/esm/typhonjs-oembed.js"
+      "import": "./dist/v6/esm/auto-register/typhonjs-oembed.js"
+    },
+    "./plugin": {
+      "import": "./dist/v6/esm/plugin/typhonjs-oembed.js"
     },
     "./package.json": "./package.json"
   },
