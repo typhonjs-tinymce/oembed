@@ -5,11 +5,21 @@
 Provides a media embed plugin for TinyMCE connecting to various oEmbed content providers. Please bear with us as this is a new release. The benefit of this plugin is that it provides a streamlined single panel UI and allows import from various oEmbed providers. Right now just YouTube / Vimeo for external video embeds. Another plus
 is that the thumbnail provided in oEmbed data returned from the provider is automatically used as a poster image allowing the display of applying styles during interactive editing which the default media plugin can not accomplish. 
 
-Release 0.3.0 has sub-package exports for TinyMCE v5 & v6 versions of the plugin though the default export is also the v6 version. 
+-----
 
-For TinyMCE v5 use: `import '@typhonjs-tinymce/oembed/v5`
+Release 0.4.0 has sub-package exports for TinyMCE v5 & v6 versions of the plugin though the default export is also the v6 version. 
 
-For TinyMCE v6 use: `import '@typhonjs-tinymce/oembed/v6` or just `import '@typhonjs-tinymce/oembed`
+Auto-registration of the plugin:
+- For TinyMCE v5 use: `import '@typhonjs-tinymce/oembed/v5`
+- For TinyMCE v6 use: `import '@typhonjs-tinymce/oembed/v6` or just `import '@typhonjs-tinymce/oembed`
+
+However, if you need to manually invoke the plugin registration this is handy when you don't know the TinyMCE version:
+- For TinyMCE v5 use: `import initPluginv5 from '@typhonjs-tinymce/oembed/v5/plugin`
+- For TinyMCE v6 use: `import initPluginv6 from '@typhonjs-tinymce/oembed/v6/plugin`
+
+`initPlugin<XX>` is a function to invoke plugin registration.
+
+-----
 
 There are also bundled distributions in `./dist` in this repo and UMD builds as well.
 

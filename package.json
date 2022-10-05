@@ -1,10 +1,10 @@
 {
   "name": "@typhonjs-tinymce/oembed",
   "description": "Provides a TinyMCE plugin for embedding oEmbed media.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
   "type": "module",
-  "browser": "dist/v6/esm/typhonjs-oembed.js",
+  "browser": "dist/v6/esm/auto-register/typhonjs-oembed.js",
   "exports": {
     "./v5": {
       "import": "./dist/v5/esm/auto-register/typhonjs-oembed.js"
@@ -56,9 +56,9 @@
     "plugin",
     "oembed"
   ],
-  "license": "MPL-2.0",
-  "repository": "github:typhonjs-node-plugin/eventbus",
-  "bugs": "https://github.com/typhonjs-node-plugin/eventbus/issues",
+  "license": "LGPL 2.1",
+  "repository": "github:typhonjs-tinymce/oembed",
+  "bugs": "https://github.com/typhonjs-tinymce/oembed/issues",
   "scripts": {
     "bundle": "rollup --config",
     "eslint": "eslint .",

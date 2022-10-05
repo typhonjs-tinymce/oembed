@@ -32,29 +32,49 @@ export default () =>
    return [
       // TinyMCE v5 version ------------------------------------------------------------------------------------------
 
-      {     // This bundle is for the browser distribution.
+      {     // This is the main auto-register bundle.
          input: ['src/v5/Main.js'],
          treeshake: {
             preset: 'smallest'   // This will reduce @ephox/katamari import.
          },
-         output: [{
-            file: `${s_DIST_V5}${path.sep}esm${path.sep}typhonjs-oembed.js`,
-            format: 'es',
-            plugins: outputPlugins,
-            preferConst: true,
-            sourcemap: s_SOURCEMAP
-         },
+         output: [
             {
+               file: `${s_DIST_V5}${path.sep}esm${path.sep}auto-register${path.sep}typhonjs-oembed.js`,
+               format: 'es',
+               plugins: outputPlugins,
+               preferConst: true,
+               sourcemap: s_SOURCEMAP
+            },
+            {  // This is the browser / test bundle.
                file: `${s_PUBLIC_V5}${path.sep}typhonjs-oembed.js`,
                format: 'es',
                preferConst: true,
                sourcemap: s_SOURCEMAP
-            }],
+            }
+         ],
          plugins: [
             resolve({ browser: true }),
          ]
       },
-      {     // This bundle is for the browser distribution.
+      {     // This is the main plugin only bundle. Useful when embedding multiple versions in a single bundle.
+         input: ['src/v5/Plugin.js'],
+         treeshake: {
+            preset: 'smallest'   // This will reduce @ephox/katamari import.
+         },
+         output: [
+            {
+               file: `${s_DIST_V5}${path.sep}esm${path.sep}plugin${path.sep}typhonjs-oembed.js`,
+               format: 'es',
+               plugins: outputPlugins,
+               preferConst: true,
+               sourcemap: s_SOURCEMAP
+            }
+         ],
+         plugins: [
+            resolve({ browser: true }),
+         ]
+      },
+      {     // This is the dist / UMD distribution bundle.
          input: ['src/v5/Main.js'],
          treeshake: {
             preset: 'smallest'   // This will reduce @ephox/katamari import.
@@ -73,29 +93,49 @@ export default () =>
 
       // TinyMCE v6 version ------------------------------------------------------------------------------------------
 
-      {     // This bundle is for the browser distribution.
+      {     // This is the main auto-register bundle.
          input: ['src/v6/Main.js'],
          treeshake: {
             preset: 'smallest'   // This will reduce @ephox/katamari import.
          },
-         output: [{
-            file: `${s_DIST_V6}${path.sep}esm${path.sep}typhonjs-oembed.js`,
-            format: 'es',
-            plugins: outputPlugins,
-            preferConst: true,
-            sourcemap: s_SOURCEMAP
-         },
-         {
-            file: `${s_PUBLIC_V6}${path.sep}typhonjs-oembed.js`,
-            format: 'es',
-            preferConst: true,
-            sourcemap: s_SOURCEMAP
-         }],
+         output: [
+            {
+               file: `${s_DIST_V6}${path.sep}esm${path.sep}auto-register${path.sep}typhonjs-oembed.js`,
+               format: 'es',
+               plugins: outputPlugins,
+               preferConst: true,
+               sourcemap: s_SOURCEMAP
+            },
+            {  // This is the browser / test bundle.
+               file: `${s_PUBLIC_V6}${path.sep}typhonjs-oembed.js`,
+               format: 'es',
+               preferConst: true,
+               sourcemap: s_SOURCEMAP
+            }
+         ],
          plugins: [
             resolve({ browser: true }),
          ]
       },
-      {     // This bundle is for the browser distribution.
+      {     // This is the main plugin only bundle. Useful when embedding multiple versions in a single bundle.
+         input: ['src/v6/Plugin.js'],
+         treeshake: {
+            preset: 'smallest'   // This will reduce @ephox/katamari import.
+         },
+         output: [
+            {
+               file: `${s_DIST_V6}${path.sep}esm${path.sep}plugin${path.sep}typhonjs-oembed.js`,
+               format: 'es',
+               plugins: outputPlugins,
+               preferConst: true,
+               sourcemap: s_SOURCEMAP
+            }
+         ],
+         plugins: [
+            resolve({ browser: true }),
+         ]
+      },
+      {     // This is the dist / UMD distribution bundle.
          input: ['src/v6/Main.js'],
          treeshake: {
             preset: 'smallest'   // This will reduce @ephox/katamari import.
